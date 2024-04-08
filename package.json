@@ -1,0 +1,19 @@
+{
+  "name": "computer-science-course-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreipaliy/Computer-Science-Course-Training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreipaliy/Computer-Science-Course-Training/issues"
+  },
+  "homepage": "https://github.com/andreipaliy/Computer-Science-Course-Training#readme"
+}
