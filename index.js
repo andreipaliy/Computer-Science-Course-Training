@@ -470,6 +470,7 @@
 //   }
 
 //   print() {
+//     console.log("RAW graph= ", this.graph);
 //     console.log(`Graph is ${this.isDirected ? "directed" : "undirected"}`);
 //     for (let vertex of this.graph) {
 //       console.log(
@@ -525,24 +526,71 @@
 //         );
 //       }
 //     }
-//     console.log(svgElements);
 //     const svgContent = svgElements.join("");
 //     const svgOutput = `<svg width="800" height="800">${svgContent}</svg>`;
-//     console.log(svgOutput);
-//     document.body.innerHTML = svgOutput;
+//     if (typeof window !== "undefined") {
+//       document.body.innerHTML = svgOutput;
+//     }
+//   }
+
+//   // Implementing the isParent method
+//   isParent(parentValue, childValue) {
+//     const parentVertexDeps = this.graph.get(parentValue);
+//     const childVertexDeps = this.graph.get(childValue);
+
+//     console.log(parentVertexDeps, childVertexDeps);
+
+//     if (!parentVertexDeps || !childVertexDeps) {
+//       return false; // One or both vertices don't exist
+//     }
+
+//     // Check if the child vertex directly depends on the parent vertex
+//     if (childVertexDeps.includes(parentValue)) {
+//       return console.log("Yes!");
+//     }
+
+//     // Check if the parent is a parent of the child transitively
+//     const visited = new Set();
+//     const stack = [...childVertexDeps]; // Start with child's dependencies
+//     console.log("stack", stack);
+//     while (stack.length > 0) {
+//       const currentDependency = stack.pop();
+//       console.log("currentDependency", currentDependency);
+//       if (currentDependency === parentValue) {
+//         return true; // Found the parent
+//       }
+//       if (!visited.has(currentDependency)) {
+//         visited.add(currentDependency);
+//         const dependencyVertex = this.graph.get(currentDependency);
+//         if (dependencyVertex) {
+//           stack.push(...dependencyVertex);
+//         }
+//       }
+//     }
+
+//     console.log("Not parent"); // Parent is not a parent of child
 //   }
 // }
 
 // const myGraph = new Graph(true);
 
 // myGraph.addVertex(100);
-// myGraph.addVertex(350);
-// myGraph.addVertex(180);
+// myGraph.addVertex(200);
+// myGraph.addVertex(300);
+// myGraph.addVertex(400);
+// myGraph.addVertex(500);
 
-// myGraph.addEdge(100, 180);
-// myGraph.addEdge(350, 180);
+// myGraph.addEdge(100, 200);
+// myGraph.addEdge(100, 300);
+// myGraph.addEdge(200, 400);
+// myGraph.addEdge(300, 500);
 
 // myGraph.print();
+// // myGraph.isParent(100, 200); // true
+// // myGraph.isParent(200, 100); // false
+// // myGraph.isParent(300, 200); // false
+// myGraph.isParent(300, 500); // false
+
 // myGraph.drawSVG();
 
 // ## Создать класс для удобной работы с графом
@@ -557,3 +605,32 @@
 // ## Создать транзитивное замыкание на основе заданного графа
 
 // Необходимо написать функцию или коструктор, который бы создавал транзитивное замыкание на основе заданного графа.
+
+// # ДЗ к лекции База#8
+
+// ## Почитать Лафоре
+
+// * Про деревья
+
+// ## Посмотреть
+
+// * [Как работаю деревья](https://www.youtube.com/watch?v=0BUX_PotA4c)
+// * [Красно-черные деревья](https://www.youtube.com/watch?v=n7Y2karbxF4)
+// * [B-деревья](https://www.youtube.com/watch?v=WXXetwePSRk)
+
+// ## Реализовать универсальные функции для бинарного поиска
+
+// Функции должны принимать компараторы, которые возвращают -1 - если элемент меньше искомого, 1 - если больше и 0 - если равны.
+
+// ```
+// // Находит первый индекс элемента
+// console.log(bisecLeft([1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 8, 9], (el) => el - 7));  // 6
+
+// // Находит последний индекс элемента
+// console.log(bisecRight([1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 8, 9], (el) => el - 7)); // 9
+// ```
+
+// ## Класс бинарного дерева поиска с поддержкой вставки и удаления, а также АПИ для организации обходов
+
+// Необходимо расширить класс из лекции и добавить поддержку добавления и удаления элементов.
+// Реализовать АПИ для обхода дерева в глубину (почитать про прямой, обратный и симметричные обходы) и ширину.
