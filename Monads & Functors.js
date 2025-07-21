@@ -1,6 +1,4 @@
-// # ДЗ к лекции База#20
-
-// ## Необходимо реализовать для типа Result интерфейс монады
+// ## Implement the Monad interface for the Result type
 
 class Result {
   #state;
@@ -57,45 +55,40 @@ class Result {
     return this;
   }
 }
-// ```js
-// const res = new Result(() => 42);
+const res = new Result(() => 42);
 
-// res
-//   .flatMap((value) => Result.Error("Boom")) // executed, changes state to error
-//   .then((value) => console.log("Not called")) // this is skipped because in Error state
-//   .catch(console.error); // Boom
+res
+  .flatMap(value => Result.Error("Boom")) // executed, changes state to error
+  .then(value => console.log("Not called")) // this is skipped because in Error state
+  .catch(console.error); // Boom
 
-// const res1 = new Result(() => {
-//   throw "Initial Error";
-// });
+const res1 = new Result(() => {
+  throw "Initial Error";
+});
 
-// res1
-//   .flatMap((value) => Result.Error("Boom")) // this is skipped because already in Error state (with another error)
-//   .then((value) => console.log("Not called")) // this is skipped because in Error state
-//   .catch(console.error); // Initial Error
+res1
+  .flatMap(value => Result.Error("Boom")) // this is skipped because already in Error state (with another error)
+  .then(value => console.log("Not called")) // this is skipped because in Error state
+  .catch(console.error); // Initial Error
 
-// const res2 = new Result(() => 42);
+const res2 = new Result(() => 42);
 
-// res2
-//   .flatMap((value) => Result.Ok(42)) // executed, no error
-//   .then((value) => console.log("Called")) // executed
-//   .catch((value) => console.error); //  not executed
-// ```
+res2
+  .flatMap(value => Result.Ok(42)) // executed, no error
+  .then(value => console.log("Called")) // executed
+  .catch(value => console.error); //  not executed
 
-// ## Необходимо реализовать для типа Result интерфейс функтора
+// ## Implement the Functor interface for the Result type
 
-// ```js
 // const res = new Result(() => 42);
 
 // res.map((value) => value * 10).then(console.log); //420
-// ```
 
-// ## Необходимо реализовать для типа Function интерфейс функтора
+// ## Implement the Functor interface for the Function type
 Function.prototype.map = function (cb) {
   return () => this(cb());
 };
-// ```js
-console.log(((v) => v * 10).map(() => 42)()); // 420
+console.log((v => v * 10).map(() => 42)()); // 420
 
-// Function.prototype from which every function is inheriting is also a Container Type
+// NOTE: Function.prototype from which every function is inheriting is also a Container Type
 // ```
